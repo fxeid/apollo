@@ -10,41 +10,472 @@
             padding: 0;
             box-sizing: border-box;
         }
+
+        :root {
+            --royal-blue: #4169e1;
+            --royal-blue-glow: rgba(65, 105, 225, 0.6);
+            --light-grey: #d3d3d3;
+            --dark-bg: #0a0a1a;
+            --cosmic-dark: #050510;
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: #d3d3d3;
-            color: #333;
+            background: radial-gradient(ellipse at center, var(--dark-bg) 0%, var(--cosmic-dark) 100%);
+            color: var(--light-grey);
+            overflow: hidden;
+            position: relative;
         }
+
+        /* Animated starfield background */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* Floating particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--royal-blue-glow);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--royal-blue), 0 0 20px var(--royal-blue-glow);
+            animation: float 8s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            50% {
+                transform: translateY(-100vh) translateX(50px);
+            }
+        }
+
+        /* Neural network lines */
+        .neural-network {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.3;
+        }
+
+        .neural-line {
+            position: absolute;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--royal-blue), transparent);
+            animation: pulse-line 4s infinite ease-in-out;
+        }
+
+        @keyframes pulse-line {
+            0%, 100% { opacity: 0.1; transform: scaleX(0.5); }
+            50% { opacity: 0.5; transform: scaleX(1); }
+        }
+
+        /* Glowing orb effect */
+        .orb {
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--royal-blue-glow) 0%, transparent 70%);
+            filter: blur(60px);
+            animation: orb-pulse 6s infinite ease-in-out;
+            z-index: 0;
+        }
+
+        .orb-1 {
+            top: -100px;
+            right: -100px;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            bottom: -150px;
+            left: -100px;
+            animation-delay: 3s;
+        }
+
+        @keyframes orb-pulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+
+        /* Main content container */
         .container {
             text-align: center;
-            padding: 2rem;
-            background-color: #f5f5f5;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            border-top: 4px solid #4169e1;
+            padding: 4rem 3rem;
+            position: relative;
+            z-index: 10;
         }
+
+        /* AI circuit decoration */
+        .circuit-border {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 1px solid rgba(65, 105, 225, 0.2);
+            border-radius: 20px;
+            pointer-events: none;
+        }
+
+        .circuit-border::before,
+        .circuit-border::after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border: 1px solid transparent;
+        }
+
+        .circuit-border::before {
+            top: -1px;
+            left: -1px;
+            border-top-color: var(--royal-blue);
+            border-left-color: var(--royal-blue);
+            border-top-left-radius: 20px;
+            animation: corner-glow 3s infinite ease-in-out;
+        }
+
+        .circuit-border::after {
+            bottom: -1px;
+            right: -1px;
+            border-bottom-color: var(--royal-blue);
+            border-right-color: var(--royal-blue);
+            border-bottom-right-radius: 20px;
+            animation: corner-glow 3s infinite ease-in-out 1.5s;
+        }
+
+        @keyframes corner-glow {
+            0%, 100% { opacity: 0.5; box-shadow: none; }
+            50% { opacity: 1; box-shadow: 0 0 20px var(--royal-blue-glow); }
+        }
+
+        /* Logo container with mysterious reveal */
+        .logo-wrapper {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+        }
+
         h1 {
-            font-size: 4rem;
+            font-size: 6rem;
             font-weight: 900;
             color: #000;
-            margin-bottom: 1rem;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.15em;
+            text-shadow:
+                0 0 40px rgba(65, 105, 225, 0.8),
+                0 0 80px rgba(65, 105, 225, 0.4),
+                0 0 120px rgba(65, 105, 225, 0.2);
+            animation: logo-reveal 2s ease-out forwards, logo-glow 4s infinite ease-in-out 2s;
+            background: linear-gradient(180deg, #000 0%, #1a1a2e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
         }
+
+        /* Glowing outline effect for black text visibility */
+        h1::before {
+            content: 'XEID';
+            position: absolute;
+            top: 0;
+            left: 0;
+            font-size: 6rem;
+            font-weight: 900;
+            letter-spacing: 0.15em;
+            color: transparent;
+            -webkit-text-stroke: 2px var(--royal-blue);
+            opacity: 0.3;
+            z-index: -1;
+            animation: outline-pulse 4s infinite ease-in-out;
+        }
+
+        @keyframes logo-reveal {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+                filter: blur(10px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+                filter: blur(0);
+            }
+        }
+
+        @keyframes logo-glow {
+            0%, 100% {
+                text-shadow:
+                    0 0 40px rgba(65, 105, 225, 0.8),
+                    0 0 80px rgba(65, 105, 225, 0.4);
+            }
+            50% {
+                text-shadow:
+                    0 0 60px rgba(65, 105, 225, 1),
+                    0 0 100px rgba(65, 105, 225, 0.6),
+                    0 0 140px rgba(65, 105, 225, 0.3);
+            }
+        }
+
+        @keyframes outline-pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        /* Tagline with typing effect */
         .tagline {
             font-size: 1.5rem;
-            color: #4169e1;
-            font-weight: 500;
+            color: var(--light-grey);
+            font-weight: 400;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+            animation: tagline-reveal 1.5s ease-out 1s forwards;
+            opacity: 0;
+        }
+
+        .tagline::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--royal-blue), transparent);
+            animation: line-expand 2s ease-out 2s forwards;
+        }
+
+        @keyframes tagline-reveal {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes line-expand {
+            0% { width: 0; }
+            100% { width: 100%; }
+        }
+
+        /* Data stream effect */
+        .data-stream {
+            position: fixed;
+            top: 0;
+            width: 1px;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .data-bit {
+            position: absolute;
+            width: 2px;
+            height: 20px;
+            background: linear-gradient(180deg, transparent, var(--royal-blue), transparent);
+            animation: stream-down 3s linear infinite;
+        }
+
+        @keyframes stream-down {
+            0% { top: -20px; opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+
+        /* Scanning line effect */
+        .scan-line {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent 0%, var(--royal-blue) 50%, transparent 100%);
+            opacity: 0.5;
+            animation: scan 8s linear infinite;
+            z-index: 2;
+        }
+
+        @keyframes scan {
+            0% { top: 0; }
+            100% { top: 100%; }
+        }
+
+        /* Hexagon grid background */
+        .hex-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(30deg, rgba(65, 105, 225, 0.03) 12%, transparent 12.5%, transparent 87%, rgba(65, 105, 225, 0.03) 87.5%, rgba(65, 105, 225, 0.03)),
+                linear-gradient(150deg, rgba(65, 105, 225, 0.03) 12%, transparent 12.5%, transparent 87%, rgba(65, 105, 225, 0.03) 87.5%, rgba(65, 105, 225, 0.03)),
+                linear-gradient(30deg, rgba(65, 105, 225, 0.03) 12%, transparent 12.5%, transparent 87%, rgba(65, 105, 225, 0.03) 87.5%, rgba(65, 105, 225, 0.03)),
+                linear-gradient(150deg, rgba(65, 105, 225, 0.03) 12%, transparent 12.5%, transparent 87%, rgba(65, 105, 225, 0.03) 87.5%, rgba(65, 105, 225, 0.03)),
+                linear-gradient(60deg, rgba(211, 211, 211, 0.02) 25%, transparent 25.5%, transparent 75%, rgba(211, 211, 211, 0.02) 75%, rgba(211, 211, 211, 0.02)),
+                linear-gradient(60deg, rgba(211, 211, 211, 0.02) 25%, transparent 25.5%, transparent 75%, rgba(211, 211, 211, 0.02) 75%, rgba(211, 211, 211, 0.02));
+            background-size: 80px 140px;
+            background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
+            pointer-events: none;
+            z-index: 0;
+            animation: grid-fade 10s infinite ease-in-out;
+        }
+
+        @keyframes grid-fade {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 4rem;
+            }
+            h1::before {
+                font-size: 4rem;
+            }
+            .tagline {
+                font-size: 1rem;
+                letter-spacing: 0.2em;
+            }
+            .container {
+                padding: 2rem 1.5rem;
+            }
+            .orb {
+                width: 200px;
+                height: 200px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Background effects -->
+    <div class="hex-grid"></div>
+    <div class="stars" id="stars"></div>
+    <div class="particles" id="particles"></div>
+    <div class="neural-network" id="neural"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="scan-line"></div>
+
+    <!-- Data streams -->
+    <div class="data-stream" id="streams"></div>
+
+    <!-- Main content -->
     <div class="container">
-        <h1>XEID</h1>
+        <div class="circuit-border"></div>
+        <div class="logo-wrapper">
+            <h1>XEID</h1>
+        </div>
         <p class="tagline">Practical AI Solutions</p>
     </div>
+
+    <script>
+        // Generate stars
+        const starsContainer = document.getElementById('stars');
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            star.style.animationDuration = (2 + Math.random() * 2) + 's';
+            starsContainer.appendChild(star);
+        }
+
+        // Generate floating particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 20; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.bottom = '-10px';
+            particle.style.animationDelay = Math.random() * 8 + 's';
+            particle.style.animationDuration = (6 + Math.random() * 4) + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // Generate neural network lines
+        const neuralContainer = document.getElementById('neural');
+        for (let i = 0; i < 15; i++) {
+            const line = document.createElement('div');
+            line.className = 'neural-line';
+            line.style.top = Math.random() * 100 + '%';
+            line.style.left = Math.random() * 50 + '%';
+            line.style.width = (50 + Math.random() * 200) + 'px';
+            line.style.transform = `rotate(${Math.random() * 360}deg)`;
+            line.style.animationDelay = Math.random() * 4 + 's';
+            neuralContainer.appendChild(line);
+        }
+
+        // Generate data streams
+        const streamsContainer = document.getElementById('streams');
+        for (let i = 0; i < 8; i++) {
+            const stream = document.createElement('div');
+            stream.className = 'data-stream';
+            stream.style.left = (10 + i * 12) + '%';
+
+            for (let j = 0; j < 5; j++) {
+                const bit = document.createElement('div');
+                bit.className = 'data-bit';
+                bit.style.animationDelay = (Math.random() * 3) + 's';
+                bit.style.animationDuration = (2 + Math.random() * 2) + 's';
+                stream.appendChild(bit);
+            }
+
+            document.body.appendChild(stream);
+        }
+    </script>
 </body>
 </html>
