@@ -4,46 +4,478 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>XEID - Practical AI Solutions</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
+        :root {
+            --color-bg-deep: #0a0a0f;
+            --color-bg-dark: #0d0d14;
+            --color-royal-blue: #4169e1;
+            --color-light-blue: #6b8cce;
+            --color-accent-glow: rgba(65, 105, 225, 0.4);
+            --color-grey-light: #e8e8ec;
+            --color-grey-mid: #a0a0a8;
+            --color-grey-dark: #2a2a35;
+            --glass-bg: rgba(20, 20, 30, 0.6);
+            --glass-border: rgba(255, 255, 255, 0.08);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: #d3d3d3;
-            color: #333;
+            background: var(--color-bg-deep);
+            color: var(--color-grey-light);
+            overflow: hidden;
+            position: relative;
         }
+
+        /* Cosmic background with animated gradient */
+        .cosmic-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background:
+                radial-gradient(ellipse at 20% 20%, rgba(65, 105, 225, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(107, 140, 206, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(30, 30, 45, 0.8) 0%, transparent 70%),
+                var(--color-bg-deep);
+        }
+
+        /* Floating particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--color-light-blue);
+            border-radius: 50%;
+            opacity: 0;
+            animation: float-particle 8s infinite ease-in-out;
+        }
+
+        .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .particle:nth-child(2) { left: 20%; animation-delay: 1s; }
+        .particle:nth-child(3) { left: 30%; animation-delay: 2s; }
+        .particle:nth-child(4) { left: 40%; animation-delay: 3s; }
+        .particle:nth-child(5) { left: 50%; animation-delay: 4s; }
+        .particle:nth-child(6) { left: 60%; animation-delay: 5s; }
+        .particle:nth-child(7) { left: 70%; animation-delay: 6s; }
+        .particle:nth-child(8) { left: 80%; animation-delay: 7s; }
+        .particle:nth-child(9) { left: 90%; animation-delay: 0.5s; }
+        .particle:nth-child(10) { left: 15%; animation-delay: 1.5s; }
+        .particle:nth-child(11) { left: 25%; animation-delay: 2.5s; }
+        .particle:nth-child(12) { left: 35%; animation-delay: 3.5s; }
+        .particle:nth-child(13) { left: 45%; animation-delay: 4.5s; }
+        .particle:nth-child(14) { left: 55%; animation-delay: 5.5s; }
+        .particle:nth-child(15) { left: 65%; animation-delay: 6.5s; }
+        .particle:nth-child(16) { left: 75%; animation-delay: 7.5s; }
+        .particle:nth-child(17) { left: 85%; animation-delay: 0.8s; }
+        .particle:nth-child(18) { left: 95%; animation-delay: 1.8s; }
+        .particle:nth-child(19) { left: 5%; animation-delay: 2.8s; }
+        .particle:nth-child(20) { left: 88%; animation-delay: 3.8s; }
+
+        @keyframes float-particle {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100vh) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* Ambient orbs */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: 1;
+            animation: pulse-orb 6s infinite ease-in-out alternate;
+        }
+
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: rgba(65, 105, 225, 0.12);
+            top: -100px;
+            right: -100px;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 300px;
+            height: 300px;
+            background: rgba(107, 140, 206, 0.08);
+            bottom: -50px;
+            left: -50px;
+            animation-delay: 2s;
+        }
+
+        .orb-3 {
+            width: 200px;
+            height: 200px;
+            background: rgba(65, 105, 225, 0.06);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: 4s;
+        }
+
+        @keyframes pulse-orb {
+            0% {
+                opacity: 0.5;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1.1);
+            }
+        }
+
+        /* Grid lines for tech feel */
+        .grid-lines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            background-image:
+                linear-gradient(rgba(65, 105, 225, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(65, 105, 225, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            animation: grid-shift 20s linear infinite;
+        }
+
+        @keyframes grid-shift {
+            0% {
+                transform: perspective(500px) rotateX(60deg) translateY(0);
+            }
+            100% {
+                transform: perspective(500px) rotateX(60deg) translateY(60px);
+            }
+        }
+
+        /* Main container with glassmorphism */
         .container {
+            position: relative;
+            z-index: 10;
             text-align: center;
-            padding: 2rem;
-            background-color: #f5f5f5;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            border-top: 4px solid #4169e1;
+            padding: 4rem 5rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 24px;
+            border: 1px solid var(--glass-border);
+            box-shadow:
+                0 8px 32px rgba(0, 0, 0, 0.4),
+                0 0 80px rgba(65, 105, 225, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            animation: fade-in-up 1s ease-out;
+            max-width: 90vw;
         }
+
+        @keyframes fade-in-up {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Logo glow effect */
+        .logo-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .logo-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 80px;
+            background: var(--color-royal-blue);
+            filter: blur(60px);
+            opacity: 0.3;
+            animation: logo-pulse 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes logo-pulse {
+            0% {
+                opacity: 0.2;
+                transform: translate(-50%, -50%) scale(0.9);
+            }
+            100% {
+                opacity: 0.4;
+                transform: translate(-50%, -50%) scale(1.1);
+            }
+        }
+
         h1 {
-            font-size: 4rem;
-            font-weight: 900;
-            color: #000;
-            margin-bottom: 1rem;
-            letter-spacing: 0.1em;
+            position: relative;
+            font-size: clamp(3.5rem, 12vw, 6rem);
+            font-weight: 800;
+            color: var(--color-grey-light);
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.2em;
+            text-shadow: 0 0 40px rgba(65, 105, 225, 0.3);
+            animation: text-reveal 1.2s ease-out 0.3s both;
         }
+
+        @keyframes text-reveal {
+            0% {
+                opacity: 0;
+                letter-spacing: 0.4em;
+                filter: blur(10px);
+            }
+            100% {
+                opacity: 1;
+                letter-spacing: 0.2em;
+                filter: blur(0);
+            }
+        }
+
+        /* Animated underline */
+        .title-underline {
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--color-royal-blue), transparent);
+            margin: 0 auto 2rem;
+            animation: line-expand 1s ease-out 1s forwards;
+        }
+
+        @keyframes line-expand {
+            0% {
+                width: 0;
+            }
+            100% {
+                width: 120px;
+            }
+        }
+
         .tagline {
-            font-size: 1.5rem;
-            color: #4169e1;
-            font-weight: 500;
+            font-size: clamp(1rem, 3vw, 1.4rem);
+            color: var(--color-grey-mid);
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            animation: fade-in 1s ease-out 0.8s both;
+        }
+
+        @keyframes fade-in {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* Subtle AI circuit decoration */
+        .circuit-decoration {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            opacity: 0.15;
+        }
+
+        .circuit-decoration.top-left {
+            top: -20px;
+            left: -20px;
+        }
+
+        .circuit-decoration.bottom-right {
+            bottom: -20px;
+            right: -20px;
+            transform: rotate(180deg);
+        }
+
+        .circuit-decoration svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .circuit-line {
+            stroke: var(--color-light-blue);
+            stroke-width: 1;
+            fill: none;
+            stroke-dasharray: 200;
+            stroke-dashoffset: 200;
+            animation: draw-circuit 3s ease-out forwards;
+        }
+
+        .circuit-decoration.bottom-right .circuit-line {
+            animation-delay: 0.5s;
+        }
+
+        @keyframes draw-circuit {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        .circuit-node {
+            fill: var(--color-royal-blue);
+            opacity: 0;
+            animation: node-appear 0.3s ease-out forwards;
+        }
+
+        .circuit-node:nth-child(1) { animation-delay: 1s; }
+        .circuit-node:nth-child(2) { animation-delay: 1.2s; }
+        .circuit-node:nth-child(3) { animation-delay: 1.4s; }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .container {
+                padding: 3rem 2.5rem;
+                margin: 1rem;
+            }
+
+            .orb-1 {
+                width: 250px;
+                height: 250px;
+            }
+
+            .orb-2 {
+                width: 200px;
+                height: 200px;
+            }
+
+            .circuit-decoration {
+                width: 60px;
+                height: 60px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 2.5rem 1.5rem;
+            }
+        }
+
+        /* Smooth scrollbar for any scrollable content */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--color-bg-dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--color-grey-dark);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--color-grey-mid);
         }
     </style>
 </head>
 <body>
+    <!-- Cosmic background -->
+    <div class="cosmic-bg"></div>
+
+    <!-- Animated grid -->
+    <div class="grid-lines"></div>
+
+    <!-- Ambient orbs -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <!-- Floating particles -->
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <!-- Main content -->
     <div class="container">
-        <h1>XEID</h1>
+        <!-- Circuit decorations -->
+        <div class="circuit-decoration top-left">
+            <svg viewBox="0 0 100 100">
+                <path class="circuit-line" d="M10 90 L10 50 L50 50 L50 10 L90 10" />
+                <circle class="circuit-node" cx="10" cy="90" r="3" />
+                <circle class="circuit-node" cx="50" cy="50" r="3" />
+                <circle class="circuit-node" cx="90" cy="10" r="3" />
+            </svg>
+        </div>
+        <div class="circuit-decoration bottom-right">
+            <svg viewBox="0 0 100 100">
+                <path class="circuit-line" d="M10 90 L10 50 L50 50 L50 10 L90 10" />
+                <circle class="circuit-node" cx="10" cy="90" r="3" />
+                <circle class="circuit-node" cx="50" cy="50" r="3" />
+                <circle class="circuit-node" cx="90" cy="10" r="3" />
+            </svg>
+        </div>
+
+        <!-- Logo with glow -->
+        <div class="logo-wrapper">
+            <div class="logo-glow"></div>
+            <h1>XEID</h1>
+        </div>
+
+        <!-- Animated underline -->
+        <div class="title-underline"></div>
+
+        <!-- Tagline -->
         <p class="tagline">Practical AI Solutions</p>
     </div>
 </body>
