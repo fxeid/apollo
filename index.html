@@ -15,20 +15,20 @@
         }
 
         :root {
-            --color-bg: #0a0a0f;
-            --color-bg-secondary: #12121a;
-            --color-bg-tertiary: #1a1a25;
+            --color-bg: #050508;
+            --color-bg-secondary: #0a0a12;
+            --color-bg-tertiary: #12121c;
             --color-text-primary: #ffffff;
-            --color-text-secondary: rgba(255, 255, 255, 0.6);
+            --color-text-secondary: rgba(255, 255, 255, 0.5);
             --color-blue: #4a9eff;
             --color-blue-bright: #6eb4ff;
             --color-magenta: #d946ef;
             --color-magenta-bright: #e879f9;
-            --color-blue-glow: rgba(74, 158, 255, 0.4);
-            --color-magenta-glow: rgba(217, 70, 239, 0.4);
-            --glass-bg: rgba(20, 20, 30, 0.65);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --glass-highlight: rgba(255, 255, 255, 0.05);
+            --color-blue-glow: rgba(74, 158, 255, 0.5);
+            --color-magenta-glow: rgba(217, 70, 239, 0.5);
+            --glass-bg: rgba(15, 15, 25, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.06);
+            --glass-highlight: rgba(255, 255, 255, 0.03);
         }
 
         html {
@@ -39,15 +39,17 @@
             font-family: 'SF Pro Display', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             min-height: 100vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
+            padding-top: 12vh;
             background: var(--color-bg);
             color: var(--color-text-primary);
             overflow: hidden;
             position: relative;
         }
 
-        /* 3D Neural network canvas */
+        /* 3D Neural network canvas - full immersive background */
         .neural-network-bg {
             position: fixed;
             top: 0;
@@ -55,7 +57,7 @@
             width: 100%;
             height: 100%;
             z-index: 0;
-            background: radial-gradient(ellipse at 50% 50%, var(--color-bg-secondary) 0%, var(--color-bg) 70%);
+            background: radial-gradient(ellipse at 50% 30%, var(--color-bg-secondary) 0%, var(--color-bg) 60%);
         }
 
         #neural-canvas {
@@ -66,42 +68,52 @@
             height: 100%;
         }
 
-        /* Ambient glow orbs */
+        /* Ambient glow orbs - more dramatic */
         .glow-orb {
             position: fixed;
             border-radius: 50%;
-            filter: blur(120px);
+            filter: blur(100px);
             z-index: 1;
-            opacity: 0.5;
+            opacity: 0.6;
             pointer-events: none;
         }
 
         .orb-blue {
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, var(--color-blue-glow) 0%, transparent 70%);
-            top: -200px;
-            right: -150px;
-            animation: float-orb 20s ease-in-out infinite;
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, var(--color-blue-glow) 0%, transparent 60%);
+            top: -250px;
+            right: -200px;
+            animation: float-orb 18s ease-in-out infinite;
         }
 
         .orb-magenta {
-            width: 550px;
-            height: 550px;
-            background: radial-gradient(circle, var(--color-magenta-glow) 0%, transparent 70%);
-            bottom: -200px;
-            left: -150px;
-            animation: float-orb 25s ease-in-out infinite reverse;
+            width: 650px;
+            height: 650px;
+            background: radial-gradient(circle, var(--color-magenta-glow) 0%, transparent 60%);
+            bottom: -250px;
+            left: -200px;
+            animation: float-orb 22s ease-in-out infinite reverse;
         }
 
         .orb-center {
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(74, 158, 255, 0.2) 0%, rgba(217, 70, 239, 0.2) 50%, transparent 70%);
-            top: 50%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(74, 158, 255, 0.15) 0%, rgba(217, 70, 239, 0.15) 50%, transparent 70%);
+            top: 35%;
             left: 50%;
             transform: translate(-50%, -50%);
-            animation: pulse-orb 8s ease-in-out infinite;
+            animation: pulse-orb 10s ease-in-out infinite;
+        }
+
+        .orb-top {
+            width: 400px;
+            height: 300px;
+            background: radial-gradient(ellipse, rgba(74, 158, 255, 0.2) 0%, rgba(217, 70, 239, 0.1) 40%, transparent 70%);
+            top: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: pulse-orb 12s ease-in-out infinite 2s;
         }
 
         @keyframes float-orb {
@@ -109,118 +121,118 @@
                 transform: translate(0, 0) scale(1);
             }
             25% {
-                transform: translate(40px, -40px) scale(1.1);
+                transform: translate(50px, -50px) scale(1.15);
             }
             50% {
-                transform: translate(-30px, 30px) scale(0.9);
+                transform: translate(-40px, 40px) scale(0.85);
             }
             75% {
-                transform: translate(-40px, -30px) scale(1.05);
+                transform: translate(-50px, -40px) scale(1.1);
             }
         }
 
         @keyframes pulse-orb {
             0%, 100% {
-                opacity: 0.3;
+                opacity: 0.4;
                 transform: translate(-50%, -50%) scale(1);
             }
             50% {
-                opacity: 0.5;
-                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 0.7;
+                transform: translate(-50%, -50%) scale(1.3);
             }
         }
 
-        /* Main content container with premium glass effect */
-        .container {
+        /* Company name - positioned at top, no frame */
+        .brand-section {
             position: relative;
             z-index: 10;
             text-align: center;
-            padding: 5rem 7rem;
-            background: var(--glass-bg);
-            backdrop-filter: blur(40px) saturate(150%);
-            -webkit-backdrop-filter: blur(40px) saturate(150%);
-            border-radius: 32px;
-            border: 1px solid var(--glass-border);
-            box-shadow:
-                0 0 80px rgba(74, 158, 255, 0.08),
-                0 0 80px rgba(217, 70, 239, 0.08),
-                0 25px 50px rgba(0, 0, 0, 0.5),
-                inset 0 1px 0 var(--glass-highlight),
-                inset 0 -1px 0 rgba(0, 0, 0, 0.2);
-            animation: container-appear 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-            max-width: 90vw;
+            padding: 2rem;
         }
 
-        .container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg,
-                transparent 0%,
-                rgba(74, 158, 255, 0.3) 25%,
-                rgba(217, 70, 239, 0.3) 75%,
-                transparent 100%);
-            border-radius: 32px 32px 0 0;
-        }
-
-        @keyframes container-appear {
-            0% {
-                opacity: 0;
-                transform: translateY(60px) scale(0.95);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        /* Company name - clean, no frame */
         h1 {
-            font-size: clamp(4.5rem, 18vw, 10rem);
-            font-weight: 700;
+            font-size: clamp(5rem, 22vw, 14rem);
+            font-weight: 800;
             color: var(--color-text-primary);
-            letter-spacing: -0.03em;
-            margin-bottom: 1.2rem;
-            animation: text-reveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+            letter-spacing: -0.04em;
+            margin-bottom: 1rem;
+            animation: text-reveal 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
             text-shadow:
-                0 0 60px rgba(74, 158, 255, 0.3),
-                0 0 120px rgba(217, 70, 239, 0.2);
+                0 0 80px rgba(74, 158, 255, 0.4),
+                0 0 160px rgba(217, 70, 239, 0.3),
+                0 0 240px rgba(74, 158, 255, 0.2);
+            background: linear-gradient(180deg,
+                #ffffff 0%,
+                rgba(255, 255, 255, 0.95) 50%,
+                rgba(200, 210, 255, 0.9) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         @keyframes text-reveal {
             0% {
                 opacity: 0;
-                transform: translateY(30px);
-                filter: blur(20px);
+                transform: translateY(40px) scale(0.95);
+                filter: blur(30px);
             }
             100% {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateY(0) scale(1);
                 filter: blur(0);
             }
         }
 
-        /* Tagline */
-        .tagline {
-            font-size: clamp(1.2rem, 3.5vw, 1.75rem);
-            color: var(--color-text-secondary);
-            font-weight: 400;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            animation: tagline-fade 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
+        /* Tagline - glass-like effect beneath company name */
+        .tagline-wrapper {
+            position: relative;
+            display: inline-block;
+            padding: 1rem 3rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(30px) saturate(180%);
+            -webkit-backdrop-filter: blur(30px) saturate(180%);
+            border-radius: 50px;
+            border: 1px solid var(--glass-border);
+            box-shadow:
+                0 0 60px rgba(74, 158, 255, 0.1),
+                0 0 60px rgba(217, 70, 239, 0.1),
+                0 15px 40px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 var(--glass-highlight),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+            animation: tagline-appear 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both;
         }
 
-        @keyframes tagline-fade {
+        .tagline-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 20%;
+            right: 20%;
+            height: 1px;
+            background: linear-gradient(90deg,
+                transparent 0%,
+                rgba(74, 158, 255, 0.4) 30%,
+                rgba(217, 70, 239, 0.4) 70%,
+                transparent 100%);
+            border-radius: 50px 50px 0 0;
+        }
+
+        .tagline {
+            font-size: clamp(0.9rem, 2.5vw, 1.4rem);
+            color: var(--color-text-secondary);
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        @keyframes tagline-appear {
             0% {
                 opacity: 0;
-                transform: translateY(15px);
+                transform: translateY(20px) scale(0.9);
             }
             100% {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateY(0) scale(1);
             }
         }
 
@@ -239,17 +251,17 @@
             position: absolute;
             border-radius: 50%;
             opacity: 0;
-            animation: float-particle 15s infinite ease-in-out;
+            animation: float-particle 18s infinite ease-in-out;
         }
 
         .particle-blue {
             background: var(--color-blue);
-            box-shadow: 0 0 15px var(--color-blue-glow);
+            box-shadow: 0 0 20px var(--color-blue-glow);
         }
 
         .particle-magenta {
             background: var(--color-magenta);
-            box-shadow: 0 0 15px var(--color-magenta-glow);
+            box-shadow: 0 0 20px var(--color-magenta-glow);
         }
 
         .particle:nth-child(1) { width: 3px; height: 3px; left: 5%; animation-delay: 0s; }
@@ -262,6 +274,10 @@
         .particle:nth-child(8) { width: 5px; height: 5px; left: 75%; animation-delay: 5s; }
         .particle:nth-child(9) { width: 3px; height: 3px; left: 85%; animation-delay: 7s; }
         .particle:nth-child(10) { width: 4px; height: 4px; left: 92%; animation-delay: 9s; }
+        .particle:nth-child(11) { width: 3px; height: 3px; left: 18%; animation-delay: 10s; }
+        .particle:nth-child(12) { width: 4px; height: 4px; left: 48%; animation-delay: 11s; }
+        .particle:nth-child(13) { width: 2px; height: 2px; left: 78%; animation-delay: 12s; }
+        .particle:nth-child(14) { width: 5px; height: 5px; left: 8%; animation-delay: 13s; }
 
         @keyframes float-particle {
             0% {
@@ -269,10 +285,10 @@
                 opacity: 0;
             }
             10% {
-                opacity: 0.8;
+                opacity: 0.9;
             }
             90% {
-                opacity: 0.8;
+                opacity: 0.9;
             }
             100% {
                 transform: translateY(-100vh) scale(1);
@@ -282,43 +298,62 @@
 
         /* Responsive adjustments */
         @media (max-width: 768px) {
-            .container {
-                padding: 4rem 2.5rem;
-                margin: 1rem;
-                border-radius: 24px;
+            body {
+                padding-top: 15vh;
+            }
+
+            .brand-section {
+                padding: 1.5rem;
+            }
+
+            .tagline-wrapper {
+                padding: 0.8rem 2rem;
             }
 
             .glow-orb {
-                filter: blur(100px);
+                filter: blur(80px);
             }
 
             .orb-blue {
+                width: 400px;
+                height: 400px;
+            }
+
+            .orb-magenta {
+                width: 380px;
+                height: 380px;
+            }
+
+            .orb-center {
                 width: 350px;
                 height: 350px;
             }
 
-            .orb-magenta {
-                width: 320px;
-                height: 320px;
-            }
-
-            .orb-center {
-                width: 280px;
-                height: 280px;
+            .orb-top {
+                width: 300px;
+                height: 200px;
             }
         }
 
         @media (max-width: 480px) {
-            .container {
-                padding: 3.5rem 1.5rem;
+            body {
+                padding-top: 18vh;
+            }
+
+            .brand-section {
+                padding: 1rem;
             }
 
             h1 {
                 letter-spacing: -0.02em;
             }
 
+            .tagline-wrapper {
+                padding: 0.7rem 1.5rem;
+            }
+
             .tagline {
-                letter-spacing: 0.05em;
+                letter-spacing: 0.08em;
             }
         }
 
@@ -351,6 +386,7 @@
     <div class="glow-orb orb-blue"></div>
     <div class="glow-orb orb-magenta"></div>
     <div class="glow-orb orb-center"></div>
+    <div class="glow-orb orb-top"></div>
 
     <!-- Floating ambient particles -->
     <div class="particles">
@@ -364,15 +400,18 @@
         <div class="particle particle-magenta"></div>
         <div class="particle particle-blue"></div>
         <div class="particle particle-magenta"></div>
+        <div class="particle particle-blue"></div>
+        <div class="particle particle-magenta"></div>
+        <div class="particle particle-blue"></div>
+        <div class="particle particle-magenta"></div>
     </div>
 
-    <!-- Main content with premium glass effect -->
-    <div class="container">
-        <!-- Company name - clean, no frame -->
+    <!-- Brand section - no frame, positioned at top -->
+    <div class="brand-section">
         <h1>XEID</h1>
-
-        <!-- Tagline -->
-        <p class="tagline">Humanly Intelligent AI</p>
+        <div class="tagline-wrapper">
+            <p class="tagline">Humanly Intelligent AI</p>
+        </div>
     </div>
 
     <!-- Immersive 3D Neural Network Animation -->
@@ -389,25 +428,36 @@
 
         const colors = {
             blue: { r: 74, g: 158, b: 255 },
-            magenta: { r: 217, g: 70, b: 239 }
+            magenta: { r: 217, g: 70, b: 239 },
+            purple: { r: 145, g: 114, b: 247 }
         };
 
-        // Configuration for 3D effect
+        // Enhanced configuration for sophisticated 3D effect
         const config = {
-            perspective: 800,
-            depth: 400,
+            perspective: 1000,
+            depth: 600,
             nodeCount: null,
-            connectionDistance: 180,
-            mouseInfluence: 0.15,
-            rotationSpeed: 0.0003
+            connectionDistance: 220,
+            mouseInfluence: 0.2,
+            rotationSpeedX: 0.0002,
+            rotationSpeedY: 0.00035,
+            rotationSpeedZ: 0.00015,
+            waveAmplitude: 0.8,
+            waveFrequency: 0.003,
+            pulseIntensity: 0.6,
+            glowIntensity: 1.2
         };
 
         let time = 0;
+        let globalRotationX = 0;
+        let globalRotationY = 0;
+        let globalRotationZ = 0;
 
         function resize() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            config.nodeCount = Math.floor((canvas.width * canvas.height) / 18000);
+            config.nodeCount = Math.floor((canvas.width * canvas.height) / 14000);
+            config.nodeCount = Math.max(40, Math.min(config.nodeCount, 120));
             initNodes();
         }
 
@@ -417,72 +467,120 @@
             const centerY = canvas.height / 2;
 
             for (let i = 0; i < config.nodeCount; i++) {
-                const colorType = Math.random() > 0.5 ? 'blue' : 'magenta';
+                const colorTypes = ['blue', 'magenta', 'purple'];
+                const colorType = colorTypes[Math.floor(Math.random() * 3)];
 
-                // Distribute nodes in 3D space
+                // Create spherical distribution with layers
+                const layer = Math.floor(Math.random() * 3);
+                const layerRadius = 150 + layer * 120 + Math.random() * 100;
                 const theta = Math.random() * Math.PI * 2;
                 const phi = Math.acos(2 * Math.random() - 1);
-                const radius = 200 + Math.random() * 300;
 
                 nodes.push({
                     // 3D coordinates
-                    x3d: Math.sin(phi) * Math.cos(theta) * radius,
-                    y3d: Math.sin(phi) * Math.sin(theta) * radius,
-                    z3d: (Math.random() - 0.5) * config.depth * 2,
+                    x3d: Math.sin(phi) * Math.cos(theta) * layerRadius,
+                    y3d: Math.sin(phi) * Math.sin(theta) * layerRadius,
+                    z3d: (Math.random() - 0.5) * config.depth * 1.5,
+
+                    // Original positions for wave effect
+                    origX: Math.sin(phi) * Math.cos(theta) * layerRadius,
+                    origY: Math.sin(phi) * Math.sin(theta) * layerRadius,
+                    origZ: (Math.random() - 0.5) * config.depth * 1.5,
 
                     // Velocity for organic movement
-                    vx: (Math.random() - 0.5) * 0.3,
-                    vy: (Math.random() - 0.5) * 0.3,
-                    vz: (Math.random() - 0.5) * 0.3,
+                    vx: (Math.random() - 0.5) * 0.4,
+                    vy: (Math.random() - 0.5) * 0.4,
+                    vz: (Math.random() - 0.5) * 0.4,
 
                     // Visual properties
-                    baseRadius: Math.random() * 2.5 + 1.5,
+                    baseRadius: Math.random() * 3 + 1.5,
                     color: colors[colorType],
                     colorType: colorType,
                     pulsePhase: Math.random() * Math.PI * 2,
-                    pulseSpeed: 0.015 + Math.random() * 0.02,
+                    pulseSpeed: 0.02 + Math.random() * 0.025,
+                    layer: layer,
 
-                    // Rotation offset for variation
-                    rotOffset: Math.random() * Math.PI * 2
+                    // Unique offset for variation
+                    rotOffset: Math.random() * Math.PI * 2,
+                    waveOffset: Math.random() * Math.PI * 2
                 });
             }
+        }
+
+        // 3D rotation functions
+        function rotateX(x, y, z, angle) {
+            const cos = Math.cos(angle);
+            const sin = Math.sin(angle);
+            return {
+                x: x,
+                y: y * cos - z * sin,
+                z: y * sin + z * cos
+            };
+        }
+
+        function rotateY(x, y, z, angle) {
+            const cos = Math.cos(angle);
+            const sin = Math.sin(angle);
+            return {
+                x: x * cos + z * sin,
+                y: y,
+                z: -x * sin + z * cos
+            };
+        }
+
+        function rotateZ(x, y, z, angle) {
+            const cos = Math.cos(angle);
+            const sin = Math.sin(angle);
+            return {
+                x: x * cos - y * sin,
+                y: x * sin + y * cos,
+                z: z
+            };
         }
 
         function project3D(x3d, y3d, z3d) {
             const centerX = canvas.width / 2;
             const centerY = canvas.height / 2;
 
+            // Apply global rotations
+            let rotated = rotateX(x3d, y3d, z3d, globalRotationX);
+            rotated = rotateY(rotated.x, rotated.y, rotated.z, globalRotationY);
+            rotated = rotateZ(rotated.x, rotated.y, rotated.z, globalRotationZ);
+
             // Add mouse-based parallax
             const parallaxX = (mouseX - centerX) * config.mouseInfluence;
             const parallaxY = (mouseY - centerY) * config.mouseInfluence;
 
-            const scale = config.perspective / (config.perspective + z3d);
+            const effectiveZ = rotated.z + config.depth;
+            const scale = config.perspective / (config.perspective + effectiveZ);
 
             return {
-                x: centerX + (x3d + parallaxX * (z3d / config.depth)) * scale,
-                y: centerY + (y3d + parallaxY * (z3d / config.depth)) * scale,
+                x: centerX + (rotated.x + parallaxX * (effectiveZ / config.depth / 2)) * scale,
+                y: centerY + (rotated.y + parallaxY * (effectiveZ / config.depth / 2)) * scale,
                 scale: scale,
-                depth: (z3d + config.depth) / (config.depth * 2) // 0-1 depth value
+                depth: (effectiveZ) / (config.depth * 2),
+                z: rotated.z
             };
         }
 
         function drawNode(node, projected, pulse) {
-            const depthAlpha = 0.2 + projected.depth * 0.6;
-            const alpha = depthAlpha * (0.5 + pulse * 0.5);
-            const radius = node.baseRadius * projected.scale * (0.8 + pulse * 0.4);
-            const glowRadius = radius * (3 + pulse * 2);
+            const depthFactor = Math.max(0.15, Math.min(1, projected.depth));
+            const alpha = depthFactor * (0.4 + pulse * config.pulseIntensity);
+            const radius = node.baseRadius * projected.scale * (0.7 + pulse * 0.5);
+            const glowRadius = radius * (4 + pulse * 3) * config.glowIntensity;
 
-            // Outer glow
+            // Outer atmospheric glow
             const outerGlow = ctx.createRadialGradient(
                 projected.x, projected.y, 0,
-                projected.x, projected.y, glowRadius * 1.5
+                projected.x, projected.y, glowRadius * 2
             );
-            outerGlow.addColorStop(0, `rgba(${node.color.r}, ${node.color.g}, ${node.color.b}, ${alpha * 0.3})`);
-            outerGlow.addColorStop(0.5, `rgba(${node.color.r}, ${node.color.g}, ${node.color.b}, ${alpha * 0.1})`);
+            outerGlow.addColorStop(0, `rgba(${node.color.r}, ${node.color.g}, ${node.color.b}, ${alpha * 0.2})`);
+            outerGlow.addColorStop(0.3, `rgba(${node.color.r}, ${node.color.g}, ${node.color.b}, ${alpha * 0.08})`);
+            outerGlow.addColorStop(0.6, `rgba(${node.color.r}, ${node.color.g}, ${node.color.b}, ${alpha * 0.02})`);
             outerGlow.addColorStop(1, `rgba(${node.color.r}, ${node.color.g}, ${node.color.b}, 0)`);
 
             ctx.beginPath();
-            ctx.arc(projected.x, projected.y, glowRadius * 1.5, 0, Math.PI * 2);
+            ctx.arc(projected.x, projected.y, glowRadius * 2, 0, Math.PI * 2);
             ctx.fillStyle = outerGlow;
             ctx.fill();
 
@@ -491,7 +589,8 @@
                 projected.x, projected.y, 0,
                 projected.x, projected.y, glowRadius
             );
-            innerGlow.addColorStop(0, `rgba(${node.color.r}, ${node.color.g}, ${node.color.b}, ${alpha * 0.6})`);
+            innerGlow.addColorStop(0, `rgba(${node.color.r}, ${node.color.g}, ${node.color.b}, ${alpha * 0.5})`);
+            innerGlow.addColorStop(0.5, `rgba(${node.color.r}, ${node.color.g}, ${node.color.b}, ${alpha * 0.15})`);
             innerGlow.addColorStop(1, `rgba(${node.color.r}, ${node.color.g}, ${node.color.b}, 0)`);
 
             ctx.beginPath();
@@ -499,39 +598,49 @@
             ctx.fillStyle = innerGlow;
             ctx.fill();
 
-            // Core with bright center
+            // Bright core with bloom
             const coreGradient = ctx.createRadialGradient(
                 projected.x, projected.y, 0,
-                projected.x, projected.y, radius
+                projected.x, projected.y, radius * 1.5
             );
-            coreGradient.addColorStop(0, `rgba(255, 255, 255, ${alpha * 0.9})`);
-            coreGradient.addColorStop(0.3, `rgba(${node.color.r}, ${node.color.g}, ${node.color.b}, ${alpha})`);
-            coreGradient.addColorStop(1, `rgba(${node.color.r}, ${node.color.g}, ${node.color.b}, ${alpha * 0.7})`);
+            coreGradient.addColorStop(0, `rgba(255, 255, 255, ${alpha * 0.95})`);
+            coreGradient.addColorStop(0.2, `rgba(255, 255, 255, ${alpha * 0.7})`);
+            coreGradient.addColorStop(0.4, `rgba(${node.color.r}, ${node.color.g}, ${node.color.b}, ${alpha * 0.9})`);
+            coreGradient.addColorStop(1, `rgba(${node.color.r}, ${node.color.g}, ${node.color.b}, ${alpha * 0.3})`);
 
             ctx.beginPath();
-            ctx.arc(projected.x, projected.y, radius, 0, Math.PI * 2);
+            ctx.arc(projected.x, projected.y, radius * 1.5, 0, Math.PI * 2);
             ctx.fillStyle = coreGradient;
             ctx.fill();
         }
 
         function drawConnection(p1, p2, node1, node2, distance, maxDistance) {
             const avgDepth = (p1.depth + p2.depth) / 2;
-            const depthAlpha = 0.1 + avgDepth * 0.15;
-            const distanceAlpha = (1 - distance / maxDistance);
-            const alpha = depthAlpha * distanceAlpha * distanceAlpha;
+            const depthAlpha = 0.08 + avgDepth * 0.12;
+            const distanceAlpha = Math.pow(1 - distance / maxDistance, 2);
+            const alpha = depthAlpha * distanceAlpha;
 
-            // Gradient connection line
+            if (alpha < 0.01) return;
+
+            // Create gradient with color blending
             const gradient = ctx.createLinearGradient(p1.x, p1.y, p2.x, p2.y);
             gradient.addColorStop(0, `rgba(${node1.color.r}, ${node1.color.g}, ${node1.color.b}, ${alpha})`);
-            gradient.addColorStop(0.5, `rgba(${(node1.color.r + node2.color.r) / 2}, ${(node1.color.g + node2.color.g) / 2}, ${(node1.color.b + node2.color.b) / 2}, ${alpha * 0.7})`);
+            gradient.addColorStop(0.5, `rgba(${(node1.color.r + node2.color.r) / 2}, ${(node1.color.g + node2.color.g) / 2}, ${(node1.color.b + node2.color.b) / 2}, ${alpha * 0.6})`);
             gradient.addColorStop(1, `rgba(${node2.color.r}, ${node2.color.g}, ${node2.color.b}, ${alpha})`);
 
             ctx.beginPath();
             ctx.moveTo(p1.x, p1.y);
             ctx.lineTo(p2.x, p2.y);
             ctx.strokeStyle = gradient;
-            ctx.lineWidth = avgDepth * 1.5;
+            ctx.lineWidth = Math.max(0.5, avgDepth * 2);
             ctx.stroke();
+
+            // Add subtle glow to stronger connections
+            if (alpha > 0.05) {
+                ctx.strokeStyle = `rgba(${(node1.color.r + node2.color.r) / 2}, ${(node1.color.g + node2.color.g) / 2}, ${(node1.color.b + node2.color.b) / 2}, ${alpha * 0.3})`;
+                ctx.lineWidth = Math.max(1, avgDepth * 4);
+                ctx.stroke();
+            }
         }
 
         function animate() {
@@ -539,43 +648,50 @@
 
             time += 1;
 
+            // Update global rotations for immersive effect
+            globalRotationX += config.rotationSpeedX;
+            globalRotationY += config.rotationSpeedY;
+            globalRotationZ += config.rotationSpeedZ;
+
             // Smooth mouse movement
-            mouseX += (targetMouseX - mouseX) * 0.05;
-            mouseY += (targetMouseY - mouseY) * 0.05;
+            mouseX += (targetMouseX - mouseX) * 0.04;
+            mouseY += (targetMouseY - mouseY) * 0.04;
 
             const projectedNodes = [];
 
             // Update and project nodes
             nodes.forEach((node, index) => {
-                // Organic movement
-                node.x3d += node.vx;
-                node.y3d += node.vy;
-                node.z3d += node.vz;
+                // Wave motion based on position and time
+                const waveX = Math.sin(time * config.waveFrequency + node.waveOffset) * config.waveAmplitude * (node.layer + 1);
+                const waveY = Math.cos(time * config.waveFrequency * 0.8 + node.waveOffset) * config.waveAmplitude * (node.layer + 1);
+                const waveZ = Math.sin(time * config.waveFrequency * 0.6 + node.waveOffset * 2) * config.waveAmplitude * 0.5;
 
-                // Global rotation for immersive effect
-                const rotSpeed = config.rotationSpeed;
-                const cos = Math.cos(rotSpeed);
-                const sin = Math.sin(rotSpeed);
+                // Update position with organic drift
+                node.x3d += node.vx + waveX * 0.3;
+                node.y3d += node.vy + waveY * 0.3;
+                node.z3d += node.vz + waveZ * 0.3;
 
-                const newX = node.x3d * cos - node.z3d * sin;
-                const newZ = node.x3d * sin + node.z3d * cos;
-                node.x3d = newX;
-                node.z3d = newZ;
+                // Gentle pull back toward origin for stability
+                node.x3d += (node.origX - node.x3d) * 0.001;
+                node.y3d += (node.origY - node.y3d) * 0.001;
+                node.z3d += (node.origZ - node.z3d) * 0.001;
 
                 // Boundary handling with soft bounce
-                const maxRange = 500;
-                if (Math.abs(node.x3d) > maxRange) node.vx *= -0.9;
-                if (Math.abs(node.y3d) > maxRange) node.vy *= -0.9;
-                if (Math.abs(node.z3d) > config.depth) node.vz *= -0.9;
+                const maxRange = 550;
+                const depthRange = config.depth * 0.8;
 
-                // Keep in bounds
-                node.x3d = Math.max(-maxRange, Math.min(maxRange, node.x3d));
-                node.y3d = Math.max(-maxRange, Math.min(maxRange, node.y3d));
-                node.z3d = Math.max(-config.depth, Math.min(config.depth, node.z3d));
-
-                // Add subtle oscillation
-                node.x3d += Math.sin(time * 0.005 + node.rotOffset) * 0.2;
-                node.y3d += Math.cos(time * 0.004 + node.rotOffset) * 0.2;
+                if (Math.abs(node.x3d) > maxRange) {
+                    node.vx *= -0.85;
+                    node.x3d = Math.sign(node.x3d) * maxRange * 0.98;
+                }
+                if (Math.abs(node.y3d) > maxRange) {
+                    node.vy *= -0.85;
+                    node.y3d = Math.sign(node.y3d) * maxRange * 0.98;
+                }
+                if (Math.abs(node.z3d) > depthRange) {
+                    node.vz *= -0.85;
+                    node.z3d = Math.sign(node.z3d) * depthRange * 0.98;
+                }
 
                 // Project to 2D
                 const projected = project3D(node.x3d, node.y3d, node.z3d);
@@ -593,7 +709,7 @@
             });
 
             // Sort by depth for proper rendering (back to front)
-            projectedNodes.sort((a, b) => a.projected.depth - b.projected.depth);
+            projectedNodes.sort((a, b) => a.projected.z - b.projected.z);
 
             // Draw connections first (behind nodes)
             for (let i = 0; i < projectedNodes.length; i++) {
